@@ -1,17 +1,21 @@
-import { QueryClient } from "@tanstack/react-query";
-import { createRouter, rootRouteId } from "@tanstack/react-router";
 import { describe, expect, it } from "vitest";
+import { rootRouteId } from "@tanstack/react-router";
+import { getRouter } from "@/router";
 
-import { routeTree } from "@/routeTree.gen";
-
-// Match routes without running loaders or rendering: loaders may need a server or
-// network the test run lacks, and jsdom never loads the stylesheets React waits on.
 describe("App routing", () => {
   it("matches a page for / instead of falling back to not found", () => {
-    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-
+    const router = getRouter();
     const matches = router.matchRoutes("/");
-
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+    expect(matches.at(-1)?.routeId).toBe("/");
+  });
+
+  it("handles GitHub Pages repository subpath /jain-gaming-centre correctly", () => {
+    // Simulate GitHub Pages URL
+    window.history.pushState({}, "", "/jain-gaming-centre/");
+    const router = getRouter();
+    expect(router.basepath).toBe("/jain-gaming-centre");
+    const matches = router.matchRoutes("/");
+    expect(matches.at(-1)?.routeId).toBe("/");
   });
 });
