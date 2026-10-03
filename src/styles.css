@@ -1,0 +1,150 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Jain Gaming Centre — Apple-style dark monochrome design system.
+ * Pure black canvas, dark cards, near-white text, grey secondary.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-surface: var(--surface);
+  --color-link: var(--link);
+  --color-success: var(--success);
+}
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  --tracking-headline: -0.03em;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0 0 0); /* #000000 */
+  --foreground: oklch(0.967 0.003 247.9); /* #f5f5f7 */
+  --card: oklch(0.157 0.003 247.9); /* #161617 */
+  --card-foreground: oklch(0.967 0.003 247.9);
+  --popover: oklch(0.157 0.003 247.9);
+  --popover-foreground: oklch(0.967 0.003 247.9);
+  --primary: oklch(0.967 0.003 247.9); /* white pill */
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.195 0.004 247.9); /* #1d1d1f */
+  --secondary-foreground: oklch(0.967 0.003 247.9);
+  --muted: oklch(0.195 0.004 247.9);
+  --muted-foreground: oklch(0.612 0.01 255); /* #86868b */
+  --accent: oklch(0.195 0.004 247.9);
+  --accent-foreground: oklch(0.967 0.003 247.9);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.967 0.003 247.9);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.967 0.003 247.9 / 60%);
+  --surface: oklch(0.195 0.004 247.9);
+  --link: oklch(0.688 0.12 240); /* Apple blue link */
+  --success: oklch(0.72 0.16 155);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: oklch(0.967 0.003 247.9 / 20%);
+  }
+}
+
+@utility tracking-headline {
+  letter-spacing: -0.03em;
+}
+
+@utility glass-nav {
+  background: oklch(0 0 0 / 72%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid oklch(1 0 0 / 8%);
+}
+
+@utility btn-press {
+  transition:
+    transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background-color 0.2s ease,
+    color 0.2s ease;
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@utility card-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease;
+  &:hover {
+    transform: translateY(-4px);
+    border-color: oklch(1 0 0 / 16%);
+  }
+}
+
+@utility fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
