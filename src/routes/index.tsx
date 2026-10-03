@@ -11,6 +11,7 @@ import {
   Fan,
   Gamepad2,
   History,
+  Instagram,
   MapPin,
   MessageCircle,
   Microscope,
@@ -35,6 +36,7 @@ const PHONE_TEL = "tel:+919826078690";
 const WA_BASE = "https://wa.me/919826078690";
 const MAPS_LINK = "https://share.google/E9DJnqxIOxmBDrTju";
 const JUSTDIAL_LINK = "https://jsdl.in/DT-29PI2USI";
+const INSTAGRAM_LINK = "https://www.instagram.com/jain_game_center?stkn=MTR0eWhodWMwZDQxcw==";
 const MAPS_EMBED =
   "https://www.google.com/maps?q=Jain+Gaming+Centre,+Prashant+Plaza,+5+Sutar+Gali,+Indore,+Madhya+Pradesh+452007&output=embed";
 
@@ -718,6 +720,14 @@ function Index() {
               >
                 <BadgeCheck className="h-4 w-4" /> JustDial
               </a>
+              <a
+                href={INSTAGRAM_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-press focus-ring inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground hover:bg-accent"
+              >
+                <Instagram className="h-4 w-4" /> Instagram (@jain_game_center)
+              </a>
             </div>
           </div>
           <div className="overflow-hidden rounded-3xl border border-border bg-card">
@@ -762,9 +772,22 @@ function Index() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-[11px] text-muted-foreground">
             <span>© 2000–2026 Jain Gaming Centre, Indore. All rights reserved.</span>
-            <a href={PHONE_TEL} className="inline-flex items-center gap-1.5 hover:text-foreground">
-              Store helpline: {PHONE_DISPLAY} <ArrowRight className="h-3 w-3" />
-            </a>
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href={INSTAGRAM_LINK}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+              >
+                <Instagram className="h-3.5 w-3.5" /> @jain_game_center
+              </a>
+              <a
+                href={PHONE_TEL}
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+              >
+                Store helpline: {PHONE_DISPLAY} <ArrowRight className="h-3 w-3" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
