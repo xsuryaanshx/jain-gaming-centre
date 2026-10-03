@@ -3,12 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
+  Award,
   BadgeCheck,
   ChevronRight,
   Clock,
   Cpu,
   Fan,
   Gamepad2,
+  History,
   MapPin,
   MessageCircle,
   Microscope,
@@ -16,6 +18,7 @@ import {
   Recycle,
   ShieldCheck,
   ShoppingBag,
+  Sparkles,
   Star,
   Wrench,
   X,
@@ -151,6 +154,7 @@ const TRADE_IN = [
 const NAV_LINKS = [
   { label: "Consoles", href: "#catalog" },
   { label: "Hall-Effect Lab", href: "#lab" },
+  { label: "25-Yr Legacy", href: "#legacy" },
   { label: "Repair Bench", href: "#repair" },
   { label: "Trade-In", href: "#trade-in" },
   { label: "Visit Store", href: "#visit" },
@@ -288,9 +292,12 @@ function Index() {
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-muted-foreground sm:text-sm">
-          <span className="inline-flex items-center gap-1.5">
-            <Clock className="h-3.5 w-3.5" /> Est. 2000
-          </span>
+          <a
+            href="#legacy"
+            className="focus-ring inline-flex items-center gap-1.5 rounded-sm transition-colors hover:text-foreground"
+          >
+            <Clock className="h-3.5 w-3.5" /> 25+ Years Legacy (Est. 2000)
+          </a>
           <span className="inline-flex items-center gap-1.5">
             <Wrench className="h-3.5 w-3.5" /> 15,000+ Consoles Serviced
           </span>
@@ -349,6 +356,133 @@ function Index() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* ------------------------- 25 Years of Legacy ----------------------- */}
+      <section
+        id="legacy"
+        className="scroll-mt-20 border-t border-border bg-gradient-to-b from-background via-card/50 to-background px-4 py-24 sm:px-6 sm:py-32"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1 text-xs font-medium text-muted-foreground">
+              <Award className="h-3.5 w-3.5 text-foreground" />
+              <span>EST. 2000 · NOVELTY MARKET, INDORE</span>
+            </div>
+            <h2 className="tracking-headline mt-6 text-3xl font-semibold sm:text-5xl">
+              25+ years of console engineering.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Before HDMI, before digital downloads, and before wireless controllers. Jain Gaming
+              Centre has anchored Indore's gaming community through four console revolutions.
+            </p>
+          </div>
+
+          {/* Era Grid */}
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                period: "2000 – 2006",
+                tag: "Gen 5 & 6",
+                title: "The Disc & Laser Era",
+                tech: "PS1 · PS2 · GameBoy Advance",
+                description:
+                  "Optical laser pickups, memory card servicing, and the original gaming counter at Prashant Plaza.",
+              },
+              {
+                period: "2006 – 2013",
+                tag: "Gen 7",
+                title: "High-Definition & HDMI",
+                tech: "PS3 · Xbox 360 · PSP",
+                description:
+                  "Pioneering BGA heat-sink rework, HDMI board-level soldering, and early optical drive laser replacements.",
+              },
+              {
+                period: "2013 – 2020",
+                tag: "Gen 8",
+                title: "Precision Maintenance",
+                tech: "PS4 · PS4 Pro · Xbox One",
+                description:
+                  "APU thermal paste overhauls, cooling duct optimizations, and precision analog potentiometer rebuilds.",
+              },
+              {
+                period: "2020 – Today",
+                tag: "Gen 9",
+                title: "Contactless Magnetic Era",
+                tech: "PS5 · Series X · Switch OLED",
+                description:
+                  "Zero-drift Hall-Effect magnetic modules, Thermal Grizzly liquid metal resurfacing, and 4K@120Hz trace diagnostics.",
+              },
+            ].map((era, idx) => (
+              <div
+                key={era.period}
+                className="card-lift relative flex flex-col justify-between rounded-3xl border border-border bg-card p-6"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-mono text-muted-foreground">{era.period}</span>
+                    <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-foreground">
+                      {era.tag}
+                    </span>
+                  </div>
+                  <h3 className="tracking-headline mt-4 text-base font-semibold text-foreground">
+                    {era.title}
+                  </h3>
+                  <p className="mt-1 font-mono text-[11px] text-muted-foreground">{era.tech}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                    {era.description}
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center gap-1.5 border-t border-border/40 pt-4 text-[11px] text-muted-foreground/80">
+                  <span className="flex h-1.5 w-1.5 rounded-full bg-foreground/60" />
+                  <span>Era {idx + 1} of 4</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Heritage Stats & Founder Promise */}
+          <div className="mt-8 rounded-3xl border border-border bg-card p-6 sm:p-10">
+            <div className="grid gap-6 sm:grid-cols-3 sm:divide-x sm:divide-border">
+              <div className="sm:pr-6">
+                <p className="tracking-headline text-3xl font-semibold text-foreground sm:text-4xl">
+                  26 <span className="text-xl font-normal text-muted-foreground">Years</span>
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Continuous operation at Prashant Plaza, Sutar Gali
+                </p>
+              </div>
+              <div className="sm:px-6">
+                <p className="tracking-headline text-3xl font-semibold text-foreground sm:text-4xl">
+                  15,000+
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Consoles, controllers & logic boards restored
+                </p>
+              </div>
+              <div className="sm:pl-6">
+                <p className="tracking-headline text-3xl font-semibold text-foreground sm:text-4xl">
+                  3 Generations
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Gamers who bought PS2 here now bring their kids for PS5
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 border-t border-border pt-6 text-center sm:text-left">
+              <p className="text-xs italic leading-relaxed text-muted-foreground sm:text-sm">
+                “In 2000, repairs meant manual laser diode calibration. Today, it means
+                micro-soldering under stereo optics with liquid metal and electromagnetic sensors.
+                The tools evolved, but our standard never changed: if it leaves our bench, it runs
+                better than the day it came out of the box.”
+              </p>
+              <p className="mt-3 text-xs font-semibold text-foreground">
+                — Jain Gaming Centre · Bench Standard since 2000
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
