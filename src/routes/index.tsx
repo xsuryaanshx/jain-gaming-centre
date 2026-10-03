@@ -5,9 +5,11 @@ import {
   ArrowUpRight,
   Award,
   BadgeCheck,
+  Check,
   ChevronRight,
   Clock,
   Cpu,
+  CreditCard,
   Fan,
   Gamepad2,
   History,
@@ -17,10 +19,12 @@ import {
   Microscope,
   Phone,
   Recycle,
+  RotateCcw,
   ShieldCheck,
   ShoppingBag,
   Sparkles,
   Star,
+  Tv,
   Wrench,
   X,
   Zap,
@@ -74,50 +78,154 @@ type Product = {
   price: number;
   note: string;
   category: "Consoles" | "Controllers" | "Mods & Parts" | "Certified Pre-Owned";
+  badge?: string;
+  warranty: string;
+  specs: string[];
 };
+
+const CATEGORY_TABS = [
+  "All",
+  "Consoles",
+  "Controllers",
+  "Certified Pre-Owned",
+  "Mods & Parts",
+] as const;
 
 const PRODUCTS: Product[] = [
   {
-    id: "ps5",
-    name: "Sony PlayStation 5 Slim Disc Edition",
+    id: "ps5-slim-disc",
+    name: "Sony PlayStation 5 Slim (Disc Edition) 1TB",
     price: 54990,
-    note: "1 Year Sony India Warranty",
+    note: "Official Sony India Retail Pack",
     category: "Consoles",
+    badge: "Bestseller",
+    warranty: "1 Year Official Sony India Warranty",
+    specs: [
+      "Plays 4K Ultra HD Blu-ray discs & digital titles",
+      "1TB custom high-speed NVMe SSD storage",
+      "Includes 1 DualSense Wireless Controller + ASTRO's PLAYROOM",
+      "Sealed box with GST invoice for Sony service claims",
+    ],
+  },
+  {
+    id: "ps5-slim-digital",
+    name: "Sony PlayStation 5 Slim (Digital Edition) 1TB",
+    price: 44990,
+    note: "Ultra-compact all-digital design",
+    category: "Consoles",
+    badge: "Pure Digital",
+    warranty: "1 Year Official Sony India Warranty",
+    specs: [
+      "Pure digital 4K gaming up to 120 FPS with ray tracing",
+      "1TB custom high-speed NVMe SSD storage",
+      "Modular design — official disc drive can be attached anytime",
+      "Includes DualSense Wireless Controller with haptic feedback",
+    ],
   },
   {
     id: "xsx",
-    name: "Microsoft Xbox Series X 1TB",
+    name: "Microsoft Xbox Series X 1TB Console",
     price: 49990,
-    note: "1 Year Microsoft India Warranty",
+    note: "12 Teraflops 4K Powerhouse",
     category: "Consoles",
+    badge: "Top Performance",
+    warranty: "1 Year Microsoft India Warranty",
+    specs: [
+      "True 4K gaming with Quick Resume across 5+ games simultaneously",
+      "1TB custom NVMe SSD + 4K Blu-ray disc drive",
+      "Xbox Game Pass ready — 100+ titles at launch",
+      "Includes Xbox Wireless Controller (Carbon Black) & Ultra-Speed HDMI",
+    ],
   },
   {
-    id: "switch",
-    name: "Nintendo Switch OLED Neon",
+    id: "switch-oled",
+    name: "Nintendo Switch OLED Edition (Neon / White)",
     price: 28990,
-    note: "6 Months Store Warranty",
+    note: "7-inch Vivid OLED Display",
     category: "Consoles",
+    badge: "Portable Hit",
+    warranty: "6 Months Jain Gaming Store Warranty",
+    specs: [
+      "Vibrant 7-inch OLED screen with deep contrast & wide kickstand",
+      "64GB internal storage + microSD card expansion slot",
+      "3-in-1 hybrid modes: Handheld, Tabletop, and TV Docked",
+      "Includes Joy-Con pair, Joy-Con grip, and TV Dock with LAN port",
+    ],
   },
   {
-    id: "dualsense",
+    id: "dualsense-hall",
     name: "DualSense Wireless Controller (Hall-Effect Modded)",
     price: 6490,
-    note: "Zero Drift Guaranteed",
+    note: "Electromagnetic contactless sensors",
     category: "Controllers",
+    badge: "Zero Drift Guaranteed",
+    warranty: "1 Year Hall-Effect Sensor Warranty",
+    specs: [
+      "Permanent K-Silver JH16 magnetic stick modules installed",
+      "Never develop potentiometer stick drift — guaranteed for life",
+      "Calibrated on PC benchmark with 0.05% center deadzone precision",
+      "Maintains full adaptive triggers, haptic feedback & built-in mic",
+    ],
   },
   {
-    id: "ps4pre",
+    id: "xbox-hall",
+    name: "Xbox Series Wireless Controller (Hall-Effect Modded)",
+    price: 5990,
+    note: "Fitted with anti-wear magnetic sticks",
+    category: "Controllers",
+    badge: "Pro Grade",
+    warranty: "1 Year Hall-Effect Sensor Warranty",
+    specs: [
+      "Contactless electromagnetic joysticks installed & zero-calibrated",
+      "Compatible with Xbox Series X|S, Xbox One, PC & Android/iOS",
+      "Textured trigger grips and hybrid 8-way directional pad",
+      "Tested on digital oscilloscope before store handover",
+    ],
+  },
+  {
+    id: "ps4pre-slim",
     name: "Certified Pre-Owned PS4 Slim 1TB Bundle",
     price: 18499,
-    note: "Serviced & Cleaned",
+    note: "Serviced, clean & bench-tested",
     category: "Certified Pre-Owned",
+    badge: "40-Point Checked",
+    warranty: "3 Months Jain Gaming Centre Warranty",
+    specs: [
+      "Deep internal dust cleaning + fresh Arctic MX-4 thermal paste",
+      "Includes 1 original Sony DualShock 4 Controller & power cables",
+      "Optical drive, HDMI port, and Wi-Fi stress-tested for 2+ hours",
+      "Ready to play immediately with 2 popular titles pre-loaded",
+    ],
+  },
+  {
+    id: "ps4pre-pro",
+    name: "Certified Pre-Owned PS4 Pro 1TB (4K Enhanced)",
+    price: 22990,
+    note: "Higher framerates & 4K gaming",
+    category: "Certified Pre-Owned",
+    badge: "4K Ready",
+    warranty: "3 Months Jain Gaming Centre Warranty",
+    specs: [
+      "Enhanced GPU power for smoother framerates and 4K visuals",
+      "Full thermal overhaul with Thermal Grizzly compound (whisper quiet)",
+      "Includes original DualShock 4 controller, power cord & HDMI cable",
+      "Comprehensive 3-hour thermal stability burn-in test passed",
+    ],
   },
   {
     id: "ksilver",
-    name: "K-Silver Hall Effect Joystick Modules (Pair)",
+    name: "K-Silver Hall-Effect Joystick Modules (Pair L+R)",
     price: 1199,
-    note: "DIY / Bench Install",
+    note: "JH16 Electromagnetic Sensors",
     category: "Mods & Parts",
+    badge: "DIY / Workshop",
+    warranty: "Tested Working Before Handover",
+    specs: [
+      "Original K-Silver JH16 magnetic electromagnetic stick modules",
+      "Compatible with PS5 DualSense, PS4 DualShock & Xbox controllers",
+      "Permanent fix for worn carbon potentiometers",
+      "Optionally have our engineer install & calibrate it at counter (+₹300)",
+    ],
   },
 ];
 
@@ -187,13 +295,13 @@ function useOpenStatus() {
 function Index() {
   const [cart, setCart] = useState<Product[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [tab, setTab] = useState<string>("Consoles");
+  const [tab, setTab] = useState<string>("All");
   const [device, setDevice] = useState<string | null>(null);
   const [symptom, setSymptom] = useState<string | null>(null);
   const isOpen = useOpenStatus();
 
   const subtotal = useMemo(() => cart.reduce((s, p) => s + p.price, 0), [cart]);
-  const filtered = PRODUCTS.filter((p) => p.category === tab);
+  const filtered = tab === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === tab);
   const repair = symptom ? REPAIR_MATRIX[symptom] : null;
 
   const addToCart = (p: Product) => {
@@ -575,53 +683,258 @@ function Index() {
 
       {/* ------------------------------ Catalog ----------------------------- */}
       <section id="catalog" className="mx-auto max-w-5xl scroll-mt-20 px-4 py-24 sm:px-6 sm:py-32">
-        <h2 className="tracking-headline text-center text-3xl font-semibold sm:text-5xl">
-          Hardware & accessories.
-        </h2>
-        <p className="mx-auto mt-4 max-w-md text-center text-sm text-muted-foreground sm:text-base">
-          Genuine stock, billed with GST invoice. In-store pickup at Nagar Nigam, Indore.
-        </p>
-
-        <div className="mt-10 flex flex-wrap justify-center gap-2">
-          {["Consoles", "Controllers", "Mods & Parts", "Certified Pre-Owned"].map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={`btn-press focus-ring rounded-full border px-4 py-2 text-sm ${
-                tab === t
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-border text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {t}
-            </button>
-          ))}
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1 text-xs font-medium text-muted-foreground">
+            <ShieldCheck className="h-3.5 w-3.5 text-foreground" />
+            <span>GENUINE INDIAN HARDWARE · PRASHANT PLAZA STORE</span>
+          </div>
+          <h2 className="tracking-headline mt-6 text-3xl font-semibold sm:text-5xl">
+            Console hardware & pro upgrades.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Original sealed stock, GST tax invoice, and on-the-spot bench testing on our 4K screen
+            before you pay. Reserve online with ₹0 deposit.
+          </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => (
-            <article
-              key={p.id}
-              className="card-lift flex flex-col rounded-3xl border border-border bg-card p-6"
-            >
-              <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
-                {p.category}
-              </p>
-              <h3 className="tracking-headline mt-2 text-lg font-semibold leading-snug">
-                {p.name}
+        {/* 3-Step Frictionless Pickup Guide */}
+        <div className="mt-12 rounded-3xl border border-border bg-card/60 p-6 sm:p-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="lg:max-w-xs">
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Frictionless Store Experience
+              </span>
+              <h3 className="tracking-headline mt-1 text-lg font-semibold sm:text-xl">
+                How purchasing works in 3 easy steps
               </h3>
-              <p className="mt-1 text-xs text-muted-foreground">{p.note}</p>
-              <div className="mt-auto flex items-center justify-between pt-6">
-                <span className="tracking-headline text-xl font-semibold">{inr(p.price)}</span>
-                <button
-                  onClick={() => addToCart(p)}
-                  className="btn-press focus-ring rounded-full bg-foreground px-4 py-2 text-xs font-medium text-background"
-                >
-                  Add to Bag
-                </button>
+              <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                No online credit card needed. Zero advance deposit. Full test drive before you pay.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3 lg:max-w-2xl">
+              <div className="rounded-2xl border border-border/70 bg-background/50 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background">
+                    1
+                  </span>
+                  <span className="text-xs font-semibold">1-Tap WhatsApp Reserve</span>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  Tap "Order on WA" below. We hold your sealed unit at the counter price with ₹0
+                  advance.
+                </p>
               </div>
-            </article>
-          ))}
+              <div className="rounded-2xl border border-border/70 bg-background/50 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background">
+                    2
+                  </span>
+                  <span className="text-xs font-semibold">4K Benchmark Testing</span>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  Visit Prashant Plaza, Novelty Market. We unbox and bench-test your unit on our 4K
+                  display.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-border/70 bg-background/50 p-4">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-foreground text-[10px] font-bold text-background">
+                    3
+                  </span>
+                  <span className="text-xs font-semibold">Pay & Take Home</span>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
+                  Pay via UPI (GPay/PhonePe), Card, or Cash. Leave with official GST bill & brand
+                  warranty.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Category Filter Tabs with dynamic item counts */}
+        <div className="mt-10 flex flex-wrap justify-center gap-2">
+          {CATEGORY_TABS.map((t) => {
+            const count =
+              t === "All" ? PRODUCTS.length : PRODUCTS.filter((p) => p.category === t).length;
+            const active = tab === t;
+            return (
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                className={`btn-press focus-ring inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-medium transition-colors ${
+                  active
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground"
+                }`}
+              >
+                <span>{t}</span>
+                <span
+                  className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${
+                    active ? "bg-background text-foreground" : "bg-secondary text-muted-foreground"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Product Cards Grid */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((p) => {
+            const reserveMessage = `Hi Jain Gaming Centre! I'd like to check availability and reserve the ${p.name} (${inr(p.price)}) for in-store pickup today.`;
+            return (
+              <article
+                key={p.id}
+                className="card-lift flex flex-col justify-between rounded-3xl border border-border bg-card p-6 transition-all hover:border-foreground/30"
+              >
+                <div>
+                  {/* Stock status & badge */}
+                  <div className="flex items-center justify-between gap-2 text-xs">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      In Stock · Store Pickup
+                    </span>
+                    {p.badge && (
+                      <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-medium text-foreground">
+                        {p.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-4">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      {p.category}
+                    </span>
+                    <h3 className="tracking-headline mt-1 text-base font-semibold leading-snug sm:text-lg">
+                      {p.name}
+                    </h3>
+                    <p className="mt-1 text-xs text-muted-foreground">{p.note}</p>
+                  </div>
+
+                  {/* Warranty Tag */}
+                  <div className="mt-3.5 inline-flex max-w-full items-center gap-1.5 rounded-lg border border-border/80 bg-background/60 px-2.5 py-1 text-xs text-muted-foreground">
+                    <ShieldCheck className="h-3.5 w-3.5 text-foreground shrink-0" />
+                    <span className="truncate">{p.warranty}</span>
+                  </div>
+
+                  {/* Key Feature Specs Checklist */}
+                  <ul className="mt-4 space-y-2 border-t border-border/60 pt-4">
+                    {p.specs.map((spec, sIdx) => (
+                      <li
+                        key={sIdx}
+                        className="flex items-start gap-2 text-xs text-muted-foreground"
+                      >
+                        <Check className="h-3.5 w-3.5 text-foreground shrink-0 mt-0.5" />
+                        <span className="leading-relaxed">{spec}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Price and Dual-Action Buttons */}
+                <div className="mt-6 border-t border-border/60 pt-5">
+                  <div className="mb-3.5">
+                    <div className="flex items-baseline justify-between">
+                      <span className="tracking-headline text-2xl font-bold">{inr(p.price)}</span>
+                      <span className="text-[11px] text-muted-foreground">₹0 Advance Needed</span>
+                    </div>
+                    <p className="mt-0.5 text-[10px] text-muted-foreground">
+                      GST tax bill included · Test before paying
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href={wa(reserveMessage)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-press focus-ring inline-flex items-center justify-center gap-1.5 rounded-full bg-foreground px-3 py-2.5 text-xs font-semibold text-background hover:opacity-95"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5" />
+                      <span>Order on WA</span>
+                    </a>
+                    <button
+                      onClick={() => addToCart(p)}
+                      className="btn-press focus-ring inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-card px-3 py-2.5 text-xs font-medium text-foreground hover:border-foreground"
+                    >
+                      <ShoppingBag className="h-3.5 w-3.5 text-muted-foreground" />
+                      <span>+ Bag</span>
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* 4 Trust & Confidence Pillars */}
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="flex items-start gap-3.5 rounded-2xl border border-border bg-card p-5">
+            <ShieldCheck className="h-5 w-5 text-foreground shrink-0 mt-0.5" />
+            <div>
+              <h4 className="text-xs font-semibold">100% Genuine Indian Stock</h4>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                Original sealed units with GST invoice recognized at authorized service centers
+                across India.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3.5 rounded-2xl border border-border bg-card p-5">
+            <Tv className="h-5 w-5 text-foreground shrink-0 mt-0.5" />
+            <div>
+              <h4 className="text-xs font-semibold">Free 4K Screen Benchmark</h4>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                We plug every console into our 4K monitor. Test HDMI output, zero dead pixels &
+                controller centering before leaving.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3.5 rounded-2xl border border-border bg-card p-5">
+            <CreditCard className="h-5 w-5 text-foreground shrink-0 mt-0.5" />
+            <div>
+              <h4 className="text-xs font-semibold">UPI, Card & Cash Accepted</h4>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                Pay seamlessly at counter via Google Pay, PhonePe, Paytm, Debit/Credit Card, or Cash
+                on pickup.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3.5 rounded-2xl border border-border bg-card p-5">
+            <RotateCcw className="h-5 w-5 text-foreground shrink-0 mt-0.5" />
+            <div>
+              <h4 className="text-xs font-semibold">Instant Exchange & Buyback</h4>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                Trade in your older PS4, PS3, Xbox, or Switch at our evaluation counter for an
+                instant discount on any new console.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* WhatsApp Advisor Strip */}
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-3xl border border-border bg-gradient-to-r from-card via-secondary/30 to-card p-6 text-center sm:flex-row sm:text-left">
+          <div>
+            <p className="text-xs font-semibold text-foreground">
+              Confused between PS5 Slim Disc vs Digital, or looking for specific game editions?
+            </p>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              Chat directly with our bench engineer on WhatsApp for honest, real-time advice.
+            </p>
+          </div>
+          <a
+            href={wa(
+              "Hi Jain Gaming Centre! I'm confused about which console/controller option is right for me. Can you help advise me?",
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-press focus-ring inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs font-medium text-background whitespace-nowrap hover:opacity-95"
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+            <span>Chat with Store Engineer</span>
+          </a>
         </div>
       </section>
 
@@ -806,20 +1119,41 @@ function Index() {
           />
           <aside className="absolute right-0 top-0 flex h-full w-full max-w-sm flex-col border-l border-border bg-card">
             <div className="flex items-center justify-between border-b border-border px-6 py-4">
-              <h2 className="text-sm font-semibold">Your Bag</h2>
-              <button
-                onClick={() => setCartOpen(false)}
-                aria-label="Close bag"
-                className="btn-press focus-ring rounded-full p-2 text-muted-foreground hover:text-foreground"
-              >
-                <X className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-semibold">Your Bag</h2>
+                {cart.length > 0 && (
+                  <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+                    {cart.length} {cart.length === 1 ? "item" : "items"}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                {cart.length > 0 && (
+                  <button
+                    onClick={() => setCart([])}
+                    className="btn-press rounded px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground"
+                  >
+                    Clear
+                  </button>
+                )}
+                <button
+                  onClick={() => setCartOpen(false)}
+                  aria-label="Close bag"
+                  className="btn-press focus-ring rounded-full p-2 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
             <div className="flex-1 overflow-y-auto px-6 py-4">
               {cart.length === 0 ? (
-                <p className="mt-10 text-center text-sm text-muted-foreground">
-                  Your bag is empty.
-                </p>
+                <div className="mt-12 text-center">
+                  <ShoppingBag className="mx-auto h-8 w-8 text-muted-foreground/50" />
+                  <p className="mt-3 text-sm font-medium">Your bag is empty</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Add any console, controller or parts to reserve them for store pickup.
+                  </p>
+                </div>
               ) : (
                 <ul className="space-y-4">
                   {cart.map((p, i) => (
@@ -830,13 +1164,16 @@ function Index() {
                       <div>
                         <p className="font-medium leading-snug">{p.name}</p>
                         <p className="mt-0.5 text-xs text-muted-foreground">{p.note}</p>
+                        <span className="mt-1 inline-block rounded bg-secondary px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                          {p.warranty}
+                        </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="whitespace-nowrap">{inr(p.price)}</span>
+                        <span className="whitespace-nowrap font-semibold">{inr(p.price)}</span>
                         <button
                           onClick={() => setCart((c) => c.filter((_, j) => j !== i))}
                           aria-label={`Remove ${p.name}`}
-                          className="text-muted-foreground hover:text-foreground"
+                          className="rounded p-1 text-muted-foreground hover:text-foreground"
                         >
                           <X className="h-3.5 w-3.5" />
                         </button>
@@ -852,20 +1189,24 @@ function Index() {
                 <span className="tracking-headline text-lg font-semibold">{inr(subtotal)}</span>
               </div>
               <p className="mt-1 text-[11px] text-muted-foreground">
-                In-store pickup at Nagar Nigam, Indore.
+                In-store pickup at Prashant Plaza, Novelty Market, Indore.
               </p>
+              <div className="mt-3 rounded-xl border border-border/80 bg-background/50 p-2.5 text-[11px] leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-foreground">Zero advance needed:</span> Reserve
+                items via WhatsApp. Unbox, bench-test on 4K display, and pay at the shop counter.
+              </div>
               <a
                 href={cart.length ? wa(cartMessage) : undefined}
                 target="_blank"
                 rel="noreferrer"
                 aria-disabled={cart.length === 0}
-                className={`btn-press focus-ring mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium ${
+                className={`btn-press focus-ring mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-opacity ${
                   cart.length
-                    ? "bg-foreground text-background"
+                    ? "bg-foreground text-background hover:opacity-95"
                     : "pointer-events-none bg-secondary text-muted-foreground"
                 }`}
               >
-                <MessageCircle className="h-4 w-4" /> Checkout via WhatsApp
+                <MessageCircle className="h-4 w-4" /> Reserve via WhatsApp
               </a>
             </div>
           </aside>
