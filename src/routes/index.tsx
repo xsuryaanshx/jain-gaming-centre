@@ -35,6 +35,16 @@ import hallEffect from "@/assets/hall-effect.jpg";
 import microSoldering from "@/assets/micro-soldering.jpg";
 import liquidMetal from "@/assets/liquid-metal.jpg";
 
+import prodPs5Disc from "@/assets/products/ps5-slim-disc.jpg";
+import prodPs5Digital from "@/assets/products/ps5-slim-digital.jpg";
+import prodXboxSeriesX from "@/assets/products/xbox-series-x.jpg";
+import prodSwitchOled from "@/assets/products/switch-oled.jpg";
+import prodDualSenseHall from "@/assets/products/dualsense-hall.jpg";
+import prodXboxHall from "@/assets/products/xbox-hall.jpg";
+import prodPs4PreSlim from "@/assets/products/ps4pre-slim.jpg";
+import prodPs4PrePro from "@/assets/products/ps4pre-pro.jpg";
+import prodKSilver from "@/assets/products/ksilver.jpg";
+
 const PHONE_DISPLAY = "+91 93023 18885";
 const PHONE_TEL = "tel:+919302318885";
 const WA_BASE = "https://wa.me/919302318885";
@@ -77,6 +87,7 @@ type Product = {
   name: string;
   price: number;
   note: string;
+  image: string;
   category: "Consoles" | "Controllers" | "Mods & Parts" | "Certified Pre-Owned";
   badge?: string;
   warranty: string;
@@ -97,6 +108,7 @@ const PRODUCTS: Product[] = [
     name: "Sony PlayStation 5 Slim (Disc Edition) 1TB",
     price: 54990,
     note: "Official Sony India Retail Pack",
+    image: prodPs5Disc,
     category: "Consoles",
     badge: "Bestseller",
     warranty: "1 Year Official Sony India Warranty",
@@ -112,6 +124,7 @@ const PRODUCTS: Product[] = [
     name: "Sony PlayStation 5 Slim (Digital Edition) 1TB",
     price: 44990,
     note: "Ultra-compact all-digital design",
+    image: prodPs5Digital,
     category: "Consoles",
     badge: "Pure Digital",
     warranty: "1 Year Official Sony India Warranty",
@@ -127,6 +140,7 @@ const PRODUCTS: Product[] = [
     name: "Microsoft Xbox Series X 1TB Console",
     price: 49990,
     note: "12 Teraflops 4K Powerhouse",
+    image: prodXboxSeriesX,
     category: "Consoles",
     badge: "Top Performance",
     warranty: "1 Year Microsoft India Warranty",
@@ -142,6 +156,7 @@ const PRODUCTS: Product[] = [
     name: "Nintendo Switch OLED Edition (Neon / White)",
     price: 28990,
     note: "7-inch Vivid OLED Display",
+    image: prodSwitchOled,
     category: "Consoles",
     badge: "Portable Hit",
     warranty: "6 Months Jain Gaming Store Warranty",
@@ -157,6 +172,7 @@ const PRODUCTS: Product[] = [
     name: "DualSense Wireless Controller (Hall-Effect Modded)",
     price: 6490,
     note: "Electromagnetic contactless sensors",
+    image: prodDualSenseHall,
     category: "Controllers",
     badge: "Zero Drift Guaranteed",
     warranty: "1 Year Hall-Effect Sensor Warranty",
@@ -172,6 +188,7 @@ const PRODUCTS: Product[] = [
     name: "Xbox Series Wireless Controller (Hall-Effect Modded)",
     price: 5990,
     note: "Fitted with anti-wear magnetic sticks",
+    image: prodXboxHall,
     category: "Controllers",
     badge: "Pro Grade",
     warranty: "1 Year Hall-Effect Sensor Warranty",
@@ -187,6 +204,7 @@ const PRODUCTS: Product[] = [
     name: "Certified Pre-Owned PS4 Slim 1TB Bundle",
     price: 18499,
     note: "Serviced, clean & bench-tested",
+    image: prodPs4PreSlim,
     category: "Certified Pre-Owned",
     badge: "40-Point Checked",
     warranty: "3 Months Jain Gaming Centre Warranty",
@@ -202,6 +220,7 @@ const PRODUCTS: Product[] = [
     name: "Certified Pre-Owned PS4 Pro 1TB (4K Enhanced)",
     price: 22990,
     note: "Higher framerates & 4K gaming",
+    image: prodPs4PrePro,
     category: "Certified Pre-Owned",
     badge: "4K Ready",
     warranty: "3 Months Jain Gaming Centre Warranty",
@@ -217,6 +236,7 @@ const PRODUCTS: Product[] = [
     name: "K-Silver Hall-Effect Joystick Modules (Pair L+R)",
     price: 1199,
     note: "JH16 Electromagnetic Sensors",
+    image: prodKSilver,
     category: "Mods & Parts",
     badge: "DIY / Workshop",
     warranty: "Tested Working Before Handover",
@@ -788,54 +808,64 @@ function Index() {
             return (
               <article
                 key={p.id}
-                className="card-lift flex flex-col justify-between rounded-3xl border border-border bg-card p-6 transition-all hover:border-foreground/30"
+                className="card-lift flex flex-col justify-between overflow-hidden rounded-3xl border border-border bg-card transition-all hover:border-foreground/30"
               >
                 <div>
-                  {/* Stock status & badge */}
-                  <div className="flex items-center justify-between gap-2 text-xs">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-400">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      In Stock · Store Pickup
-                    </span>
-                    {p.badge && (
-                      <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[10px] font-medium text-foreground">
-                        {p.badge}
+                  {/* Image with overlay badge */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-secondary/40">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute inset-x-3 top-3 flex items-center justify-between gap-2">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-background/85 px-2.5 py-1 text-[11px] font-medium text-emerald-400 shadow-sm backdrop-blur-md">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        In Stock · Store Pickup
                       </span>
-                    )}
+                      {p.badge && (
+                        <span className="rounded-full bg-background/85 px-2.5 py-1 text-[10px] font-semibold text-foreground shadow-sm backdrop-blur-md">
+                          {p.badge}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="mt-4">
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      {p.category}
-                    </span>
-                    <h3 className="tracking-headline mt-1 text-base font-semibold leading-snug sm:text-lg">
-                      {p.name}
-                    </h3>
-                    <p className="mt-1 text-xs text-muted-foreground">{p.note}</p>
-                  </div>
+                  <div className="p-6">
+                    <div>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        {p.category}
+                      </span>
+                      <h3 className="tracking-headline mt-1 text-base font-semibold leading-snug sm:text-lg">
+                        {p.name}
+                      </h3>
+                      <p className="mt-1 text-xs text-muted-foreground">{p.note}</p>
+                    </div>
 
-                  {/* Warranty Tag */}
-                  <div className="mt-3.5 inline-flex max-w-full items-center gap-1.5 rounded-lg border border-border/80 bg-background/60 px-2.5 py-1 text-xs text-muted-foreground">
-                    <ShieldCheck className="h-3.5 w-3.5 text-foreground shrink-0" />
-                    <span className="truncate">{p.warranty}</span>
-                  </div>
+                    {/* Warranty Tag */}
+                    <div className="mt-3.5 inline-flex max-w-full items-center gap-1.5 rounded-lg border border-border/80 bg-background/60 px-2.5 py-1 text-xs text-muted-foreground">
+                      <ShieldCheck className="h-3.5 w-3.5 text-foreground shrink-0" />
+                      <span className="truncate">{p.warranty}</span>
+                    </div>
 
-                  {/* Key Feature Specs Checklist */}
-                  <ul className="mt-4 space-y-2 border-t border-border/60 pt-4">
-                    {p.specs.map((spec, sIdx) => (
-                      <li
-                        key={sIdx}
-                        className="flex items-start gap-2 text-xs text-muted-foreground"
-                      >
-                        <Check className="h-3.5 w-3.5 text-foreground shrink-0 mt-0.5" />
-                        <span className="leading-relaxed">{spec}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    {/* Key Feature Specs Checklist */}
+                    <ul className="mt-4 space-y-2 border-t border-border/60 pt-4">
+                      {p.specs.map((spec, sIdx) => (
+                        <li
+                          key={sIdx}
+                          className="flex items-start gap-2 text-xs text-muted-foreground"
+                        >
+                          <Check className="h-3.5 w-3.5 text-foreground shrink-0 mt-0.5" />
+                          <span className="leading-relaxed">{spec}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 {/* Price and Dual-Action Buttons */}
-                <div className="mt-6 border-t border-border/60 pt-5">
+                <div className="border-t border-border/60 p-6 pt-5">
                   <div className="mb-3.5">
                     <div className="flex items-baseline justify-between">
                       <span className="tracking-headline text-2xl font-bold">{inr(p.price)}</span>
@@ -1161,12 +1191,19 @@ function Index() {
                       key={`${p.id}-${i}`}
                       className="flex items-start justify-between gap-3 text-sm"
                     >
-                      <div>
-                        <p className="font-medium leading-snug">{p.name}</p>
-                        <p className="mt-0.5 text-xs text-muted-foreground">{p.note}</p>
-                        <span className="mt-1 inline-block rounded bg-secondary px-1.5 py-0.5 text-[10px] text-muted-foreground">
-                          {p.warranty}
-                        </span>
+                      <div className="flex items-start gap-3">
+                        <img
+                          src={p.image}
+                          alt={p.name}
+                          className="h-12 w-12 rounded-xl object-cover border border-border shrink-0 bg-secondary/50"
+                        />
+                        <div>
+                          <p className="font-medium leading-snug">{p.name}</p>
+                          <p className="mt-0.5 text-xs text-muted-foreground">{p.note}</p>
+                          <span className="mt-1 inline-block rounded bg-secondary px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                            {p.warranty}
+                          </span>
+                        </div>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="whitespace-nowrap font-semibold">{inr(p.price)}</span>
