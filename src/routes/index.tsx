@@ -31,9 +31,9 @@ import hallEffect from "@/assets/hall-effect.jpg";
 import microSoldering from "@/assets/micro-soldering.jpg";
 import liquidMetal from "@/assets/liquid-metal.jpg";
 
-const PHONE_DISPLAY = "+91 98260 78690";
-const PHONE_TEL = "tel:+919826078690";
-const WA_BASE = "https://wa.me/919826078690";
+const PHONE_DISPLAY = "+91 93023 18885";
+const PHONE_TEL = "tel:+919302318885";
+const WA_BASE = "https://wa.me/919302318885";
 const MAPS_LINK = "https://share.google/E9DJnqxIOxmBDrTju";
 const JUSTDIAL_LINK = "https://jsdl.in/DT-29PI2USI";
 const INSTAGRAM_LINK = "https://www.instagram.com/jain_game_center?stkn=MTR0eWhodWMwZDQxcw==";
